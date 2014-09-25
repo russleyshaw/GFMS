@@ -1,0 +1,5 @@
+# Ignore secret files
+secret_*
+
+# Ignore PHPMYADMIN
+phpmyadmin/
