@@ -43,6 +43,6 @@
   $path .= "/disconn.php";
   include_once($path);
 
-  header("Location: /login/");
-  exit;
+  //header("Location: /login/");
+  //exit;
 ?>
