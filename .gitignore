@@ -1,5 +1,5 @@
 # Ignore secret files
-secret_*
+secret_conn.php
 
 # Ignore PHPMYADMIN
 phpmyadmin
