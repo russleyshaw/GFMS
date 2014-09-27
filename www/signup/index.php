@@ -1,3 +1,5 @@
+<?php if (session_status() == PHP_SESSION_NONE) { session_start(); } ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Login | GFMS</title>
+  <title>Sign Up | GFMS</title>
 
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/bootstrap/css/custom.css" rel="stylesheet">
@@ -13,13 +15,12 @@
 
 <body> <!-- BODY START -->
 
-  
-  <!-- NAVBAR INCLUDE --> <?php 
-      $path = $_SERVER['DOCUMENT_ROOT'];
-      $path .= "/navbar/default.php";
-      include_once($path);
-  ?>
+  <?php include($_SERVER['DOCUMENT_ROOT']."/navbar/default.php"); ?>
+
+  <?php include($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
+
   <div class="container">
+
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
       <form role="form" method="post" action="do_signup.php">
@@ -56,7 +57,7 @@
   function check_same_pass() {
     var pwd1 = $("#signup_password1");
     var pwd2 = $("#signup_password2");
-    if( pwd1.val() === pwd2.val() ) {
+    if( (pwd1.val() === pwd2.val()) ) {
       pwd2.parent().removeClass("has-error");
       pwd2.parent().addClass("has-success");
       pwd2.siblings("span").html("");
@@ -71,10 +72,10 @@
 
   $("#signup_password1").change(function() {
     check_same_pass();
-  });
+  }).change();
   $("#signup_password2").change(function() {
     check_same_pass();
-  });
+  }).change();
   </script>
 
 </body> <!-- BODY END -->

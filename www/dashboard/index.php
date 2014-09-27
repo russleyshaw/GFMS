@@ -1,5 +1,7 @@
 <?php if (session_status() == PHP_SESSION_NONE) { session_start(); } ?>
 <?php include_once($_SERVER['DOCUMENT_ROOT']."/conn.php"); ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT']."/check_login.php"); ?>
+<?php include_once($_SERVER['DOCUMENT_ROOT']."/logged_in_only.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Login | GFMS</title>
+  <title>Dashboard | GFMS</title>
 
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/bootstrap/css/custom.css" rel="stylesheet">
@@ -16,26 +18,14 @@
 
 <body> <!-- BODY START -->
 
-  <?php include($_SERVER['DOCUMENT_ROOT']."/navbar/chooser.php"); ?>
+  <?php include_once($_SERVER['DOCUMENT_ROOT']."/navbar/chooser.php"); ?>
 
-  <?php include($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
+  <?php include_once($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
 
   <div class="container">
-
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-      <form role="form" method="post" action="do_login.php">
-
-        <div class="form-group">
-          <input type="text" class="form-control" name="login_username" id="login_username" placeholder="Username">
-        </div>
-
-        <div class="form-group">
-          <input type="password" class="form-control" name="login_password" id="login_password" placeholder="Password">
-        </div>
-
-        <button type="submit" class="btn btn-default">Login</button>
-      </form>
+        You still are logged in.
       </div>
     </div>
   </div>

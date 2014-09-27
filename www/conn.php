@@ -1,11 +1,12 @@
 <?php
-  $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= "/secret_conn.php";
-  include_once($path);
+  include_once($_SERVER['DOCUMENT_ROOT']."/secret_conn.php");
 
-  $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); 
+  if(!isset($mysqli)) {
+    $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME); 
+  }
 
-  if ($mysqli->connect_errno) {
+  if($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+    exit;
   }
 ?>

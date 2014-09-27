@@ -1,2 +1,3 @@
 <?php
+  $mysqli->close();
 ?>

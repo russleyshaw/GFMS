@@ -1,3 +1,7 @@
+<?php if (session_status() == PHP_SESSION_NONE) { session_start(); } ?>
+<?php include($_SERVER['DOCUMENT_ROOT']."/conn.php"); ?>
+<?php include($_SERVER['DOCUMENT_ROOT']."/check_login.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +17,9 @@
 
 <body> <!-- BODY START -->
 
-  
-  <!-- NAVBAR INCLUDE --> <?php 
-      $path = $_SERVER['DOCUMENT_ROOT'];
-      $path .= "/navbar/default.php";
-      include_once($path);
-  ?>
+  <?php include_once($_SERVER['DOCUMENT_ROOT']."/navbar/chooser.php"); ?>
+
+  <?php include_once($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
 
   <h1>Hello, world!</h1>
 
