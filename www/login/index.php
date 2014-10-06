@@ -21,6 +21,12 @@
   <?php include($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
 
   <div class="container">
+    <div class="row">
+      <h3 style="text-align:center;">Login</h3>
+    </div>
+  </div>
+
+  <div class="container">
 
     <div class="row">
       <div class="col-md-6 col-md-offset-3">

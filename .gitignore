@@ -3,3 +3,9 @@ secret_conn.php
 
 # Ignore PHPMYADMIN
 phpmyadmin
+
+# Ignore local NPM modules
+node_modules/
+
+#Ignore symbolic links
+./www/bootstrap

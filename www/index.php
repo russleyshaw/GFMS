@@ -21,7 +21,14 @@
 
   <?php include_once($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
 
-  <h1>Hello, world!</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Group Finance Management System</h1>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
