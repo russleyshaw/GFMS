@@ -11,7 +11,7 @@
   $admin_id = $_SESSION['user_id'];
 
   //Check for group name collisions
-  $sql = "SELECT * FROM `group` WHERE name = '$group_name'";
+  $sql = "SELECT * FROM `group` WHERE name = '$group_name' LIMIT 1";
   if( $result = $mysqli->query($sql) ) {
     if($result->num_rows > 0) {
       $_SESSION['web_alert_danger'] = 'Group '.$name.' already exists.';
