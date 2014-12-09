@@ -52,7 +52,7 @@
       <?PHP echo "<a href=\"/group/transaction/?id=".$id."\">";?>
          <button type="button" class="btn btn-default btn-sm">Create Transacation</button>
       </a>
-      <?PHP echo "<a href=\"/group/transaction/?id=".$id."\">";?>
+      <?PHP echo "<a href=\"/group/payment/?id=".$id."\">";?>
          <button type="button" class="btn btn-default btn-sm">Create Payment</button>
       </a>
       </div>

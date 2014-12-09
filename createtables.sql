@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `group_user` (
 CREATE TABLE IF NOT EXISTS `payment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `amount` decimal(10,0) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
   `payment_to` int(10) unsigned NOT NULL,
   `payment_from` int(10) unsigned NOT NULL,
   `payment_of` int(10) unsigned NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `summary_user` (
   `user_id` int(10) unsigned NOT NULL,
   `summary_id` int(10) unsigned NOT NULL,
   `payment_to` int(10) unsigned NOT NULL,
-  `amount` decimal(10,0) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`,`summary_id`,`payment_to`),
   KEY `summary_id` (`summary_id`),
