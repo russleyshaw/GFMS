@@ -65,7 +65,6 @@
   </div>
   
   <?PHP
-  
   if($inGroup) {
     echo '<div class="container">';
     echo '<div class="row">';
@@ -75,6 +74,9 @@
     echo '</a>';
     echo "<a href=\"/group/payment/?id=".$id."\">";
     echo '<button type="button" class="btn btn-default btn-sm">Create Payment</button>';
+    echo '</a>';
+    echo '<a href="/group/do_newsummary.php/?id='.$id.'">';
+    echo '<button type="button" class="btn btn-default btn-sm">Create Summary</button>';
     echo '</a>';
     echo '</div>';
     echo '</div>';
@@ -91,7 +93,8 @@
         echo "<div class=\"table-responsive\"><table class=\"table\">";
         echo "<thead><tr><th>Date</th><th>Amount</th><th>Created by</th><th>Description</th></thead><tbody>";
         while($transaction = mysqli_fetch_array($result)) {
-          echo "<tr><td>".$transaction['date']."</td>".
+          $realdate = date("Y-m-d", strtotime($transaction['date']));
+          echo "<tr><td>".$realdate."</td>".
                    "<td>".$transaction['amount']."</td>".
                    "<td>".$transaction['username']."</td>".
                    "<td>".$transaction['description']."</td></tr>";

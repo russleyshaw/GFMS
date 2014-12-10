@@ -15,7 +15,7 @@
   $sql = "INSERT INTO `payment` (`date`, `amount`, `payment_to`, `payment_from`, `payment_of`) VALUES ('$date', '$amount', '$touser', '$fromuser', '$groupID')";
   if(!$mysqli->query($sql)){
     $_SESSION['web_alert_danger'] = $mysqli->error;
-    header("Location: /group/payment/");
+    header("Location: /group/payment/?id=".$groupID);
     exit;
   }
   
