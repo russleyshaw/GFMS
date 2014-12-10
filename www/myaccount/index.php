@@ -1,31 +1,7 @@
 <?php if (session_status() == PHP_SESSION_NONE) { session_start(); } ?>
 <?php include_once($_SERVER['DOCUMENT_ROOT']."/conn.php"); ?>
 <?php include_once($_SERVER['DOCUMENT_ROOT']."/check_login.php"); ?>
-
-<?php
-  $id = $_GET['id'];
-  $sql = "SELECT * FROM `group` WHERE id = '$id'";
-  if($result = $mysqli->query($sql) ) {
-    if($result->num_rows < 1) {
-      $_SESSION['web_alert_danger'] = 'Unable to find group with id '. $id.'.';
-      header("Location: /");
-      exit;     
-    }
-
-    $row = mysqli_fetch_array($result);
-  } else {
-      $_SESSION['web_alert_danger'] = 'Failed to query group.';
-      header("Location: /");
-      exit;
-  }
-  //make sure that the user is the admin
-  if($row['admin_id'] != $_SESSION['user_id'])
-  {
-    $_SESSION['web_alert_danger'] = 'You are not the admin of this group.';
-    header("Location: /group?id=$id");
-    exit;
-  }
-?>
+<?php include_once($_SERVER['DOCUMENT_ROOT']."/logged_in_only.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title><?php echo $row['name']; ?> Admin | GFMS</title>
+  <title>My Account | GFMS</title>
 
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/bootstrap/css/custom.css" rel="stylesheet">
@@ -48,7 +24,7 @@
 
   <div class="container">
     <div class="row">
-      <h3 style="text-align:center;"><?php echo $row['name']; ?> Admin</h3>
+      <h3 style="text-align:center;">My Account</h3>
     </div>
   </div>
 

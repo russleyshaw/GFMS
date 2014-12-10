@@ -18,6 +18,25 @@
       header("Location: /");
       exit;
   }
+  $isPrivate = $row['private'];
+  if(!array_key_exists('user_id', $_SESSION)) {
+    $inGroup = false;
+  } else {
+    $sql = "SELECT * FROM `group_user` WHERE group_id='$id' AND user_id='".$_SESSION['user_id']."'";
+    if($result = $mysqli->query($sql) ) {
+      $inGroup = true;
+    } else {
+      $_SESSION['web_alert_danger'] = 'Failed to query group.';
+      header("Location: /");
+      exit;
+    }
+  }
+  //forbid access if private
+  if(!$inGroup AND $isPrivate) {
+    $_SESSION['web_alert_danger'] = 'That group is private.';
+    header("Location: /");
+    exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -45,19 +64,23 @@
     </div>
   </div>
   
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-      <?PHP echo "<a href=\"/group/transaction/?id=".$id."\">";?>
-         <button type="button" class="btn btn-default btn-sm">Create Transacation</button>
-      </a>
-      <?PHP echo "<a href=\"/group/payment/?id=".$id."\">";?>
-         <button type="button" class="btn btn-default btn-sm">Create Payment</button>
-      </a>
-      </div>
-    </div>
-  </div>
+  <?PHP
+  
+  if($inGroup) {
+    echo '<div class="container">';
+    echo '<div class="row">';
+    echo '<div class="col-md-6 col-md-offset-3">';
+    echo "<a href=\"/group/transaction/?id=".$id."\">";
+    echo '<button type="button" class="btn btn-default btn-sm">Create Transacation</button>';
+    echo '</a>';
+    echo "<a href=\"/group/payment/?id=".$id."\">";
+    echo '<button type="button" class="btn btn-default btn-sm">Create Payment</button>';
+    echo '</a>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+  }
+  ?>
   
   <?PHP
     //get the ten most recent transactions
