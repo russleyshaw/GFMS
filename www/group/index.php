@@ -61,7 +61,7 @@
   
   <?PHP
     //get the ten most recent transactions
-    $sql = "SELECT * FROM `transaction`,`user` WHERE transaction_of = '$id' AND transaction_of = user.id ORDER BY date DESC LIMIT 10";
+    $sql = "SELECT * FROM `transaction`,`user` WHERE transaction_of = '$id' AND owner = user.id ORDER BY date DESC LIMIT 10";
     if($result = $mysqli->query($sql) ) {
       if($result->num_rows > 0) {
         //print out all the rows
