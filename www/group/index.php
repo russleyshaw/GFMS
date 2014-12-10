@@ -58,6 +58,29 @@
       </div>
     </div>
   </div>
+  
+  <?PHP
+    //get the ten most recent transactions
+    $sql = "SELECT * FROM `transaction`,`user` WHERE transaction_of = '$id' AND transaction_of = user.id ORDER BY date DESC LIMIT 10";
+    if($result = $mysqli->query($sql) ) {
+      if($result->num_rows > 0) {
+        //print out all the rows
+        echo "<div class=\"table-responsive\"><table class=\"table\">";
+        echo "<thead><tr><th>Date</th><th>Amount</th><th>Created by</th><th>Description</th></thead><tbody>";
+        while($transaction = mysqli_fetch_array($result)) {
+          echo "<tr><td>".$transaction['date']."</td>".
+                   "<td>".$transaction['amount']."</td>".
+                   "<td>".$transaction['username']."</td>".
+                   "<td>".$transaction['description']."</td></tr>";
+        }
+        echo "</tbody></table></div>";
+      }
+    } else {
+      $_SESSION['web_alert_danger'] = 'Failed to query group transactions.';
+      header("Location: /dashboard/");
+      exit;
+    }
+  ?>
 
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
