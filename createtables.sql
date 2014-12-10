@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `group_user` (
   
 CREATE TABLE IF NOT EXISTS `payment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `payment_to` int(10) unsigned NOT NULL,
   `payment_from` int(10) unsigned NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   
 CREATE TABLE IF NOT EXISTS `summary` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `belongs_to` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `belongs_to` (`belongs_to`)
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `summary_user` (
 CREATE TABLE IF NOT EXISTS `transaction` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `description` text NOT NULL,
-  `date` date NOT NULL,
+  `date` datetime NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `transaction_of` int(10) unsigned NOT NULL,
   `owner` int(10) unsigned NOT NULL,
