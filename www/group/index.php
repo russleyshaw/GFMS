@@ -138,7 +138,8 @@ WHERE
 	summary_user.user_id = user1.id AND
 	summary_user.payment_to = user2.id AND
 	summary_user.summary_id = summary.id AND
-	summary.id = (SELECT id FROM summary ORDER BY id DESC LIMIT 1)
+	summary.id = (SELECT id FROM summary ORDER BY id DESC LIMIT 1) AND
+	summary.belongs_to = '$id'
 ORDER BY
 	summary.id DESC
 LIMIT 100
