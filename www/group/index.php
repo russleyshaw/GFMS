@@ -68,25 +68,115 @@ if(!$inGroup AND $isPrivate) {
         </h3>
     </div>
 
-<?PHP
-if($inGroup) {
-    echo
-'
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <a href="/group/payment/?id='.$id.'" class="btn btn-default btn-block">Create Payment</a>
-        </div>
+<?php
+$sql = "
+SELECT
+	user1.username AS 'from',
+	user2.username AS 'to',
+	payment.amount AS 'amount',
+	payment.date AS 'date'
+FROM
+	`payment`, `user` AS user1, `user` AS user2
+WHERE
+	payment.payment_from = user1.id AND
+	payment.payment_to = user2.id AND
+	payment.payment_of = '$id'
+ORDER BY
+	payment.id DESC
+LIMIT 10
+";
+
+if($result = $mysqli->query($sql)){
+    echo '
+    <div class="row"><div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="pull-left">Payments</span>';
+    if($inGroup) {
+        echo '<a href="/group/payment/?id='.$id.'" class="btn btn-success btn-xs pull-right">+ Create Payment</span></a>';
+    }
+    echo'
+            </div> <!-- panel-heading -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th><th>From</th><th>To</th><th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>';
+    while($summary = mysqli_fetch_array($result)) {
+        $realdate = date("Y-m-d", strtotime($summary['date']));
+        echo'
+                <tr>
+                    <td>'.$realdate.'</td>
+                    <td>'.$summary['from'].'</td>
+                    <td>'.$summary['to'].'</td>
+                    <td>'.$summary['amount'].'</td>
+                </tr>
+    ';
+    }
+    echo '
+            </tbody>
+        </table>
     </div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <a href="/group/do_newsummary.php/?id='.$id.'" class="btn btn-default btn-block">Create Summary</a>
-        </div>
-    </div>
-';
+</div></div>';
+} else {
+    $_SESSION['web_alert_danger'] = 'Failed to query group payments.';
 }
 ?>
 
 <?php
+$sql = "
+SELECT
+	user1.username AS 'from',
+	user2.username AS 'to',
+	summary_user.amount AS 'amount',
+	summary.id AS 'SUMMARY'
+FROM
+	summary_user, user AS user1, user AS user2, summary
+WHERE
+	summary_user.user_id = user1.id AND
+	summary_user.payment_to = user2.id AND
+	summary_user.summary_id = summary.id AND
+	summary.id = (SELECT id FROM summary ORDER BY id DESC LIMIT 1)
+ORDER BY
+	summary.id DESC
+LIMIT 100
+";
+
+if($result = $mysqli->query($sql)){
+    echo '
+    <div class="row"><div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="pull-left">Summary</span>';
+    if($inGroup) {
+        echo '<a href="/group/do_newsummary.php/?id='.$id.'" class="btn btn-success btn-xs pull-right">+ Create Summary</span></a>';
+    }
+    echo'
+            </div> <!-- panel-heading -->
+            <table class="table">
+                <thead>
+                    <tr><th>From</th><th>To</th><th>Amount</th>
+                </thead>
+                <tbody>';
+    while($summary = mysqli_fetch_array($result)) {
+        echo'
+                    <tr>
+                        <td>'.$summary['from'].'</td>
+                        <td>'.$summary['to'].'</td>
+                        <td>'.$summary['amount'].'</td>
+                    </tr>
+        ';
+    }
+    echo '
+                </tbody>
+            </table>
+        </div>
+    </div></div>';
+} else {
+    $_SESSION['web_alert_danger'] = 'Failed to query group summary.';
+}
 
 ?>
 
@@ -94,43 +184,39 @@ if($inGroup) {
 //get the ten most recent transactions
 $sql = "SELECT * FROM `transaction`,`user` WHERE transaction_of = '$id' AND owner = user.id ORDER BY date DESC LIMIT 10";
 if($result = $mysqli->query($sql) ) {
-    if($result->num_rows > 0) {
-        //print out all the rows
-        echo
-'
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <span class="pull-left">Transactions</span>
-                    <a href="/group/transaction/?id='.$id.'" class="btn btn-success btn-xs pull-right">+ Create Transaction</span></a>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr><th>Date</th><th>Amount</th><th>Created by</th><th>Description</th>
-                    </thead>
-                    <tbody>
-';
-        while($transaction = mysqli_fetch_array($result)) {
-            $realdate = date("Y-m-d", strtotime($transaction['date']));
-            echo
-'
-                        <tr>
-                            <td>'.$realdate.'</td>
-                            <td>'.$transaction["amount"].'</td>
-                            <td>'.$transaction['username'].'</td>
-                            <td>'.$transaction['description'].'</td>
-                        </tr>
-';
-        }
-        echo '
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-';
+    //print out all the rows
+    echo '
+    <div class="row"><div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="pull-left">Transactions</span>';
+
+    if($inGroup) {
+        echo '<a href="/group/transaction/?id='.$id.'" class="btn btn-success btn-xs pull-right">+ Create Transaction</span></a>';
     }
+
+    echo'
+            </div> <!-- panel-heading -->
+            <table class="table">
+                <thead>
+                    <tr><th>Date</th><th>Amount</th><th>Created by</th><th>Description</th>
+                </thead>
+                <tbody>';
+    while($transaction = mysqli_fetch_array($result)) {
+        $realdate = date("Y-m-d", strtotime($transaction['date']));
+        echo '
+                    <tr>
+                        <td>'.$realdate.'</td>
+                        <td>'.$transaction["amount"].'</td>
+                        <td>'.$transaction['username'].'</td>
+                        <td>'.$transaction['description'].'</td>
+                    </tr>';
+    }
+    echo '
+                </tbody>
+            </table>
+        </div>
+    </div></div>';
 } else {
     $_SESSION['web_alert_danger'] = 'Failed to query group transactions.';
 }

@@ -47,8 +47,13 @@
   <?php include_once($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
 
   <div class="container">
+    <div class="row text-center">
+      <h3><?php echo $row['name']; ?> Admin</h3>
+    </div>
     <div class="row">
-      <h3 style="text-align:center;"><?php echo $row['name']; ?> Admin</h3>
+        <div class="col-md-6 col-md-offset-3">
+            <?php echo '<a href="/group/admin/delete_group.php?id='.$id.'" class="btn btn-danger btn-block">Delete '.$row['name'].'</a>'?>
+        </div>
     </div>
   </div>
 

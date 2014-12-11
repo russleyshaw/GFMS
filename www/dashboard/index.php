@@ -14,6 +14,40 @@ if (!$result = $mysqli->query($sql)) {
     exit;
 }
 $num_groups = $result->num_rows;
+
+//STATISTICS
+$sql = "SELECT COUNT(*) AS a FROM `user`";
+if($result1 = $mysqli->query($sql)) {
+    $row = mysqli_fetch_array($result1);
+    $NUM_OF_USERS = $row['a'];
+} else {
+    $_SESSION['web_alert_danger'] = $mysqli->error;
+}
+
+$sql = "SELECT COUNT(*) AS a FROM `group`";
+if($result1 = $mysqli->query($sql)) {
+    $row = mysqli_fetch_array($result1);
+    $NUM_OF_GROUPS = $row['a'];
+} else {
+    $_SESSION['web_alert_danger'] = $mysqli->error;
+}
+
+$sql = "SELECT AVG(transaction.amount) AS a FROM `transaction`";
+if($result1 = $mysqli->query($sql)) {
+    $row = mysqli_fetch_array($result1);
+    $AVG_TRANSACTION = $row['a'];
+} else {
+    $_SESSION['web_alert_danger'] = $mysqli->error;
+}
+
+$sql = "SELECT MAX(payment.amount) AS a FROM `payment`";
+if($result1 = $mysqli->query($sql)) {
+    $row = mysqli_fetch_array($result1);
+    $MAX_PAYMENT = $row['a'];
+} else {
+    $_SESSION['web_alert_danger'] = $mysqli->error;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +77,7 @@ $num_groups = $result->num_rows;
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     Groups
@@ -78,7 +112,21 @@ $num_groups = $result->num_rows;
                 </div>
             </div>
         </div>
-    <!-- col-md-6 -->
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    Statistics (system-wide)
+                </div>
+                <div class="panel-body">
+                    Number of users: <?php echo $NUM_OF_USERS ?><br/>
+                    Number of groups: <?php echo $NUM_OF_GROUPS ?><br/>
+                    Average transaction: <?php echo $AVG_TRANSACTION ?><br/>
+                    Maximum payment: <?php echo $MAX_PAYMENT ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div><!-- container -->
 
