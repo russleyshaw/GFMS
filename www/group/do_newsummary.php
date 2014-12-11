@@ -83,7 +83,7 @@
   //sum the amount of money each user has payed
   while($row = mysqli_fetch_array($transactions)) {
     $amount = $row['amount'];
-    $amount_payed[$row['transaction_of']] += $amount;
+    $amount_payed[$row['owner']] += $amount;
     $total_payed += $amount;
   }
   
@@ -205,7 +205,7 @@
     $sql = "INSERT INTO `summary_user` (`user_id`, `summary_id`, `payment_to`, `amount`) VALUES ('$payer', '$new_id', '$reciever', '$amount')";
     if(!($mysqli->query($sql))) {
       $_SESSION['web_alert_danger'] = $mysqli->error;
-      header("Location: /group/?id=".$groupID);
+      //header("Location: /group/?id=".$groupID);
       exit;
     }
   }
