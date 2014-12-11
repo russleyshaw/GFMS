@@ -15,3 +15,4 @@ if($mysqli->query($sql)){
 }
 header("Location: /myaccount");
 exit;
+?>
