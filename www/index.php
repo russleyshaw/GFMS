@@ -12,7 +12,6 @@
   <title>Home | GFMS</title>
 
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/bootstrap/css/custom.css" rel="stylesheet">
 </head>
 
 <body> <!-- BODY START -->
@@ -22,11 +21,14 @@
   <?php include_once($_SERVER['DOCUMENT_ROOT']."/web_alerts/base.php"); ?>
 
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row text-center">
         <h1>Group Finance Management System</h1>
-
-      </div>
+    </div>
+    <div class="row text-center">
+        <a href="/imgs/money.gif" target="_blank">
+            <img src="/imgs/money.gif" width="25%" />
+            <img src="/imgs/money.gif" width="25%" />
+        </a>
     </div>
   </div>
 

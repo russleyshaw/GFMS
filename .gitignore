@@ -1,6 +1,9 @@
 # Ignore secret files
 secret_conn.php
 
+# Ignore idea/
+.idea/
+
 # Ignore PHPMYADMIN
 phpmyadmin
 
