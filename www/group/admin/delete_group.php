@@ -43,3 +43,4 @@
         header("Location: /group/admin/?id=".$groupid);
         exit;
     }
+?>
